@@ -3,6 +3,7 @@ package servelet;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -79,6 +80,14 @@ public class Login extends HttpServlet {
 			System.out.println(tempUser.getEmail());
 			
 			response.sendRedirect("profile.jsp");
+			
+		}else {
+			
+			RequestDispatcher dispatcher =request.getRequestDispatcher("index.jsp");
+			
+			request.setAttribute("loginError", true);
+			dispatcher.forward(request, response);
+			
 			
 		}
 		
