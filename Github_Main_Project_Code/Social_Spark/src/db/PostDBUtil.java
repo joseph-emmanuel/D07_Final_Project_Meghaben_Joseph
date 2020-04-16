@@ -27,6 +27,7 @@ public class PostDBUtil {
 		Statement smt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
+		String questionDataBaseId="jk@gmail.com"; 
 		
 		ArrayList<Post> allPosts  = new ArrayList<>();	
 		
@@ -34,7 +35,7 @@ public class PostDBUtil {
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql = "SELECT * FROM post";
+			String sql = "SELECT * FROM post  WHERE email= 'jk@gmail.com'";
 			
 			smt = conn.createStatement();
 			
