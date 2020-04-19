@@ -1,6 +1,7 @@
 package servelet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -9,32 +10,31 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import db.PostDBUtil;
 import db.UserDBUtil;
-import model.User;
+import model.Post;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Home
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/Home")
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Home() {
         super();
         // TODO Auto-generated constructor stub
     }
     
     
-    
     @Resource(name="jdbc/social")
     private DataSource datasource;
-    private UserDBUtil userdb;
+    private PostDBUtil postdb;
     
 
 	@Override
@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
 		
 		try {
 		
-			userdb = new UserDBUtil(datasource);			
+			postdb = new PostDBUtil(datasource);			
 		
 		}catch(Exception ex) {
 			
@@ -54,44 +54,38 @@ public class Login extends HttpServlet {
 		
 	}
 
+    
+    
+    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		HttpSession session = request.getSession();
+		ArrayList<Post> allPosts = new ArrayList<>();
 		
-		
-		String email = request.getParameter("email");
-		String pass = request.getParameter("pass");
-		
-		
-		User tempUser = new User(email,pass);
-		
-		
-		Boolean canLogin = tempUser.login(userdb);
-		
-		
-		if(canLogin) {
+		try {
+			allPosts =	postdb.getAllPosts();
 			
-			session.setAttribute("user", tempUser);
+			request.setAttribute("allPosts", allPosts);
 			
-			System.out.println(tempUser.getEmail());
 			
-			response.sendRedirect("profile.jsp");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
 			
-		}else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
 			
-			RequestDispatcher dispatcher =request.getRequestDispatcher("index.jsp");
-			
-			request.setAttribute("loginError", true);
 			dispatcher.forward(request, response);
-			
 			
 		}
 		
-	}
+		
+	}		
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

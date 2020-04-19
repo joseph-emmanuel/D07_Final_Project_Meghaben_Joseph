@@ -22,6 +22,10 @@
 <h2>${user.getFname()}<br></h2>
 <h2>${user.getLname()}<br></h2>
 <h2>${user.getEmail()}<br></h2>
+<br><br>
+	
+	
+	<a href="Home">Home</a>
 
 
 
