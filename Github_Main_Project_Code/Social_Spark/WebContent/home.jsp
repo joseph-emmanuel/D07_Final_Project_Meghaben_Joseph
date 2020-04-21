@@ -16,13 +16,16 @@
 	
 	<tag:forEach var="post" items="${allPosts}">
 	
-		<span>${post.getDate()}</span> <br>
-		<span>${post.getContent()}</span> <br>
-		<span>${post.getEmail()}</span> <br><br><br>
-	
+		<jsp:include page="./posts/post.jsp" >
+    		<jsp:param name="content" value="${post.getContent()}"/>
+   			<jsp:param name="date" value="${post.getDate()}"/>
+			<jsp:param name="email" value="${post.getEmail()}"/>
+			<jsp:param name="id" value="${post.getId()}"/>
+		</jsp:include> 
 	
 	</tag:forEach>
 	
+
 
 </body>
 </html>

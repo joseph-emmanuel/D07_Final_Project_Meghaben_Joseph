@@ -20,7 +20,7 @@
 			<br><br>
 			<button type="submit">Login</button>
 			<button type="reset">Reset</button>
-			
+			<a href="register.jsp">register</a>
 			<tag:if test="${loginError}">
 					<br>
 					<span> incorrect email or password </span>	

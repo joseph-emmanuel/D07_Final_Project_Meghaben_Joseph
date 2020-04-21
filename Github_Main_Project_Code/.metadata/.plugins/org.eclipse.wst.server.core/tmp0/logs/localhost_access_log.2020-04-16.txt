@@ -45,3 +45,8 @@
 0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:58:26 -0400] "GET /Social_Spark/profile.jsp HTTP/1.1" 200 284
 0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:58:28 -0400] "GET /Social_Spark/Home HTTP/1.1" 200 169
 0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:58:59 -0400] "GET /Social_Spark/WEB-INF/classes/db/PostDBUtil.java HTTP/1.1" 404 682
+127.0.0.1 - - [16/Apr/2020:06:59:07 -0400] "GET / HTTP/1.1" 404 709
+0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:59:07 -0400] "GET /Social_Spark/Login HTTP/1.1" 200 595
+0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:59:17 -0400] "POST /Social_Spark/Login HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:59:17 -0400] "GET /Social_Spark/profile.jsp HTTP/1.1" 200 284
+0:0:0:0:0:0:0:1 - - [16/Apr/2020:06:59:18 -0400] "GET /Social_Spark/Home HTTP/1.1" 200 433

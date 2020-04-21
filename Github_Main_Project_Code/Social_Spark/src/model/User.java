@@ -1,5 +1,6 @@
-package model;
+ package model;
 
+import db.PostDBUtil;
 import db.UserDBUtil;
 
 public class User {
@@ -73,7 +74,21 @@ public class User {
 		return false;
 	}
 	
-
+public Boolean createPost(String content, String image, PostDBUtil postdb) {
+		
+		Post tempPost = new Post(this.email,content,image);
+		
+		try {
+			postdb.insertPost(tempPost);
+			return true;	
+			
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}	
+		
+		return false;
+	}
 
 	@Override
 	public String toString() {
