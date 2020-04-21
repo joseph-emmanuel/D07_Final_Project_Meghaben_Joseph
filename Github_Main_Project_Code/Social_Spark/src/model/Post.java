@@ -1,5 +1,17 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.sql.DataSource;
+
+import model.Post;
+
+import java.util.Date;
 public class Post {
 	
 	
@@ -17,6 +29,17 @@ public class Post {
 		this.date = date;
 		this.email = email;
 	}
+      public Post(String email,String content, String image) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		
+		this.email = email;
+		this.content = content;
+		this.image = image;
+		this.id = null;
+		this.date = sdf.format(new Date());
+	}
+      
 
 	public String getId() {
 		return id;

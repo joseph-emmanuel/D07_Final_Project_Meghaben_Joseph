@@ -12,7 +12,7 @@ import model.Post;
 
 public class PostDBUtil {
 
-	
+//	 User user=(User)session.getAttribute("user");
 	private DataSource dataSource;
 
 	
@@ -23,11 +23,12 @@ public class PostDBUtil {
 	
 	public ArrayList<Post> getAllPosts() throws Exception{
 		
+		
+		
 		Connection conn = null;
 		Statement smt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		String questionDataBaseId="jk@gmail.com"; 
 		
 		ArrayList<Post> allPosts  = new ArrayList<>();	
 		
@@ -35,7 +36,7 @@ public class PostDBUtil {
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql = "SELECT * FROM post  WHERE email= 'jk@gmail.com'";
+			String sql = "SELECT * FROM post";
 			
 			smt = conn.createStatement();
 			
@@ -66,7 +67,93 @@ public class PostDBUtil {
 		
 	
 	}
+public ArrayList<Post> getUserPosts(String userEmail) throws Exception{
+		
+		//use
 	
+		userEmail="jk@gmail.com";
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+		ArrayList<Post> userPosts  = new ArrayList<>();	
+		
+		try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql = "SELECT * FROM post where email = '" + userEmail +"'";
+			
+			smt = conn.createStatement();
+			
+			res = smt.executeQuery(sql);
+			
+			
+			while(res.next()) {
+				
+				String id = Integer.toString(res.getInt("id"));
+				String email = res.getString("email").toString();
+				String content = res.getString("content");
+				String image = res.getString("image");
+				String date = res.getString("date");
+				
+				userPosts.add(new Post(id,content,image,date,email));
+				
+			}
+			
+			
+		}finally {
+			
+			close(conn,smt,pstmt,res);
+				
+		}
+			
+		
+		return userPosts;
+		
+	
+	}
+	
+public void insertPost(Post tempPost) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	
+	String content = tempPost.getContent();	
+	String email = tempPost.getEmail();	
+	String image = tempPost.getImage();	
+	String date = tempPost.getDate();	
+	
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql = String.format("INSERT INTO post (email,content,image,date) VALUES ('%s','%s','%s','%s')", email,content,image,date);
+		
+		smt = conn.createStatement();
+		
+		smt.executeUpdate(sql);
+		
+		
+	}finally {
+		
+		close(conn,smt,pstmt,res);
+			
+	}
+
+	
+	
+	
+	
+	
+	
+	
+}
+
+
 	private void close(Connection conn, Statement smt, PreparedStatement pstmt, ResultSet res) {
 		
 		try {

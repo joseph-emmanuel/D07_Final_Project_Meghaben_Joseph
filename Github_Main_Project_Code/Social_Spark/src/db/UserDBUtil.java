@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -89,4 +90,41 @@ public class UserDBUtil {
 		}
 			
 	}
+	
+	public Boolean sendUser(String fname,String lname,String email,String pass) throws Exception{
+		Boolean status=false;	
+		int id=getRandom();
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement ps = null;
+		ResultSet res = null;
+		
+		User foundUser = null;	
+		
+		try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql = String.format("INSERT INTO user (fname,lname,email,pass) VALUES ('%s','%s','%s','%s')", fname,lname,email,pass);
+			
+			smt = conn.createStatement();
+			
+			int i = smt.executeUpdate(sql);
+	        if (i > 0) {
+	            status=true;
+	        } 
+		}finally {
+			
+			close(conn,smt,ps,res);
+				
+		}
+		return status;
+		
+	}
+	static int getRandom(){
+		int range =10;
+		Random rand = new Random(System.currentTimeMillis());
+		return rand.nextInt(range);
+	}
+
 }
