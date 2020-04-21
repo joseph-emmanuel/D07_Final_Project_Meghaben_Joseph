@@ -3,6 +3,7 @@ package db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -141,18 +142,94 @@ public void insertPost(Post tempPost) throws Exception {
 	}finally {
 		
 		close(conn,smt,pstmt,res);
-			
+	}
 	}
 
-	
-	
-	
-	
-	
-	
+	public void update(String id) throws Exception {
+		
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		int id1=Integer.parseInt(id);
+		Post tempPost=null;
+			try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql = "SELECT * FROM post WHERE id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			res = pstmt.executeQuery();
+			
+			if(res.next()) {
+				String email = res.getString("email").toString();
+				String content = res.getString("content").toString();
+				String image = res.getString("image").toString();
+				String date = res.getString("date").toString();
+				
+				tempPost = new Post(id, content, image, date, email);
+				
+			}
+			}finally {
+				
+			}
+		
+		
+		int id11 = Integer.parseInt(tempPost.getId());	
+		String content = tempPost.getContent();	
+		String email = tempPost.getEmail();	
+		String image = tempPost.getImage();	
+		String date = tempPost.getDate();	
+		
+		try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql2 = "update post set email=?,content=?,image=?,date=? where email=?";
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, email);
+			pstmt.setString(2, content);
+			pstmt.setString(3, image);
+			pstmt.setString(4, date);
+			pstmt.setString(5, email);
+			pstmt.executeUpdate();
+					
+			System.out.println("Database updated successfully ");
+			
+		}
+		finally {
+			
+			close(conn,smt,pstmt,res);
+				
+		}
 	
 }
-
+public void deletePost(String id) throws Exception
+{
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	
+		try {
+			conn = this.dataSource.getConnection();
+			String sql = "delete FROM post WHERE id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+		} finally {
+			close(conn,smt,pstmt,res);
+		} 
+		
+}
 
 	private void close(Connection conn, Statement smt, PreparedStatement pstmt, ResultSet res) {
 		
