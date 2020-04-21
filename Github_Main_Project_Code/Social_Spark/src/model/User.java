@@ -89,6 +89,33 @@ public Boolean createPost(String content, String image, PostDBUtil postdb) {
 		
 		return false;
 	}
+public Boolean editPost(String id,PostDBUtil postdb)
+{
+	try {
+		postdb.update(id);
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	
+	return true;
+}
+
+
+
+public Boolean delPost(String id,PostDBUtil postdb)
+{
+	try {
+		postdb.deletePost(id);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	
+	
+	
+	
+	return true;
+}
 
 	@Override
 	public String toString() {
