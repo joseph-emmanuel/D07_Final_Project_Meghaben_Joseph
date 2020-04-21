@@ -27,13 +27,11 @@
 	
 	<a href="Home">Home</a>
 <a href="LogoutServlet">Logout</a> |  
-<form action="CreatePost">
+<form action="CreatePost" method="post">
 <textarea name="content"></textarea>
 <input type="file" name="image">
 <button type="submit">create</button>
 <button type="reset">reset</button>
-
-
 </form>
 
 </body>
