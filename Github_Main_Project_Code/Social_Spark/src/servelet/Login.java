@@ -63,8 +63,10 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		
-		String email = request.getParameter("email");
-		String pass = request.getParameter("pass");
+		String email = "jk@gmail.com";
+				//request.getParameter("email");
+		String pass = "jk123";
+		//request.getParameter("pass");
 		
 		
 		User tempUser = new User(email,pass);

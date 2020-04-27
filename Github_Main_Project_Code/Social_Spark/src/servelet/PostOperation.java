@@ -3,6 +3,7 @@ package servelet;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import db.PostDBUtil;
+import model.Post;
 import model.User;
 
 /**
@@ -57,15 +59,33 @@ public class PostOperation extends HttpServlet {
 	String edit=request.getParameter("edit");
 	String delete=request.getParameter("delete");
 	String like=request.getParameter("like");
-	
+	String message=request.getParameter("c");
 	Boolean iscompleted=false;
+	
 	if (edit!=null) {
-		iscompleted=user.editPost(edit, postdb);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("UpdatePost");
+		//request.setAttribute("created", true);
+		request.setAttribute("user", user);
+		request.setAttribute("id", edit);
+		request.setAttribute("content", message);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("editPost.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 	if (delete!=null) {
 		iscompleted=user.delPost(delete, postdb);
-	}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
+//		request.setAttribute("created", true);
+		dispatcher.forward(request, response);
 	
+	}
+
+	if (like!=null) {
+		iscompleted=user.likePost(like, postdb);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
+//		request.setAttribute("created", true);
+		dispatcher.forward(request, response);
+	}
 	
 	
 	}

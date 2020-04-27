@@ -76,7 +76,7 @@ public class User {
 	
 public Boolean createPost(String content, String image, PostDBUtil postdb) {
 		
-		Post tempPost = new Post(this.email,content,image);
+		Post tempPost = new Post(this.email,content,image,0);
 		
 		try {
 			postdb.insertPost(tempPost);
@@ -92,7 +92,7 @@ public Boolean createPost(String content, String image, PostDBUtil postdb) {
 public Boolean editPost(String id,PostDBUtil postdb)
 {
 	try {
-		postdb.update(id);
+		//postdb.update(id);
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
@@ -113,6 +113,18 @@ public Boolean delPost(String id,PostDBUtil postdb)
 	
 	
 	
+	
+	return true;
+}
+public Boolean likePost(String id,PostDBUtil postdb)
+{
+	
+	try {
+		postdb.likepost(id);
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 	
 	return true;
 }

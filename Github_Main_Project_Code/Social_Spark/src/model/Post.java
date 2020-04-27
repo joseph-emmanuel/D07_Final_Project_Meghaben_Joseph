@@ -20,6 +20,7 @@ public class Post {
 	private  String image;
 	private String date;
 	private String email;
+	private int like;
 	
 	public Post(String id, String content, String image, String date, String email) {
 		
@@ -28,6 +29,16 @@ public class Post {
 		this.image = image;
 		this.date = date;
 		this.email = email;
+		this.like=0;
+	}
+	public Post(String id, String content, String image, String date, String email,int like) {
+		
+		this.id = id;
+		this.content = content;
+		this.image = image;
+		this.date = date;
+		this.email = email;
+		this.like=like;
 	}
       public Post(String email,String content, String image) {
 		
@@ -39,8 +50,25 @@ public class Post {
 		this.id = null;
 		this.date = sdf.format(new Date());
 	}
+      public Post(String email,String content, String image,int like) {
+  		
+  		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+  		
+  		this.email = email;
+  		this.content = content;
+  		this.image = image;
+  		this.id = null;
+  		this.date = sdf.format(new Date());
+  		this.like=like;
+  	}
       
 
+	public int getLike() {
+		return like;
+	}
+	public void setLike(int like) {
+		this.like = like;
+	}
 	public String getId() {
 		return id;
 	}

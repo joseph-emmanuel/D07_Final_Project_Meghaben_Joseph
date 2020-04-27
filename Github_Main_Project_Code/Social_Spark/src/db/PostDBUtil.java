@@ -72,7 +72,7 @@ public ArrayList<Post> getUserPosts(String userEmail) throws Exception{
 		
 		//use
 	
-		userEmail="jk@gmail.com";
+		userEmail=userEmail;
 		Connection conn = null;
 		Statement smt = null;
 		PreparedStatement pstmt = null;
@@ -127,6 +127,7 @@ public void insertPost(Post tempPost) throws Exception {
 	String email = tempPost.getEmail();	
 	String image = tempPost.getImage();	
 	String date = tempPost.getDate();	
+	int like=tempPost.getLike();
 	
 	try {
 		
@@ -145,7 +146,7 @@ public void insertPost(Post tempPost) throws Exception {
 	}
 	}
 
-	public void update(String id) throws Exception {
+	public void update(String id ,String ContentFinal) throws Exception {
 		
 		Connection conn = null;
 		Statement smt = null;
@@ -179,26 +180,20 @@ public void insertPost(Post tempPost) throws Exception {
 			}
 		
 		
-		int id11 = Integer.parseInt(tempPost.getId());	
+		String id11 = tempPost.getId();	
 		String content = tempPost.getContent();	
-		String email = tempPost.getEmail();	
-		String image = tempPost.getImage();	
-		String date = tempPost.getDate();	
 		
 		try {
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql2 = "update post set email=?,content=?,image=?,date=? where email=?";
+			String sql2 = "update post set content=? where id=?";
 			
 			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, email);
-			pstmt.setString(2, content);
-			pstmt.setString(3, image);
-			pstmt.setString(4, date);
-			pstmt.setString(5, email);
+			pstmt.setString(1, ContentFinal);
+			pstmt.setString(2, tempPost.getId());
 			pstmt.executeUpdate();
-					
+			
 			System.out.println("Database updated successfully ");
 			
 		}
@@ -209,6 +204,61 @@ public void insertPost(Post tempPost) throws Exception {
 		}
 	
 }
+public void	likepost(String id)throws Exception
+	{
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		Post tempPost=null;
+		try {
+			conn = this.dataSource.getConnection();
+			String sql = "select * FROM post WHERE id = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			res=pstmt.executeQuery();
+			if(res.next()) {
+				String email = res.getString("email").toString();
+				String content = res.getString("content").toString();
+				String image = res.getString("image").toString();
+				String date = res.getString("date").toString();
+				int like=res.getInt("tlike");
+				//int like=res.getInt("like").toString();
+				tempPost = new Post(id, content, image, date, email,like);
+				
+			}
+		} finally {
+			//close(conn,smt,pstmt,res);
+		} 
+		String id11 = tempPost.getId();	
+		int like=tempPost.getLike();
+		 Integer hitsCount=like++;
+				
+try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql2 = "update post set tlike=? where id=?";
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, Integer.toString(hitsCount));
+			pstmt.setString(2, tempPost.getId());
+			pstmt.executeUpdate();
+			
+			System.out.println("Database updated successfully  for like");
+			
+		}
+		finally {
+			
+			close(conn,smt,pstmt,res);
+				
+		}
+	}
+	
+	
 public void deletePost(String id) throws Exception
 {
 	Connection conn = null;
