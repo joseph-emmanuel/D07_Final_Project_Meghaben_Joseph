@@ -19,14 +19,14 @@
 }
 
 .well {
-    margin-top:-20px;
-    background-color:#007FBD;
-    border:2px solid #0077B2;
-    text-align:center;
-    cursor:pointer;
-    font-size: 25px;
-    padding: 15px;
-    border-radius: 0px !important;
+	margin-top: 3%;
+	background-color: #DFDFDF;
+	border: 2px solid #878585;
+	text-align: center;
+	cursor: pointer;
+	font-size: 18px;
+	padding: 10px;
+	margin-left: 8%;
 }
 
 /*.well:hover {
@@ -139,34 +139,29 @@ background-color: #F1F1F1;
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 <div class="bs-example">
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a href="#" class="navbar-brand">Brand</a>
+    <nav class="navbar navbar-expand-md navbar-light" style="border-bottom: solid 1px">
+        <a href="#" class="navbar-brand"><img src="./resource/Images/social-spark-logo.png" style="width:80%"/></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link active">Home</a>
-                <a href="#" class="nav-item nav-link">Profile</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Messages</a>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">Inbox</a>
-                        <a href="#" class="dropdown-item">Sent</a>
-                        <a href="#" class="dropdown-item">Drafts</a>
-                    </div>
-                </div>
-            </div>
+                <a href="#" class="nav-item nav-link">Home</a>
+                <a href="#" class="nav-item nav-link active">Profile</a>
+                <a href="#" class="nav-link nav-link" data-toggle="dropdown">Messages</a>                
+            </div>            
+            <div class="navbar-nav">
             <form class="form-inline">
                 <div class="input-group">                    
                     <input type="text" class="form-control" placeholder="Search">
@@ -175,31 +170,25 @@ background-color: #F1F1F1;
                     </div>
                 </div>
             </form>
-            <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link">Login</a>
+                <a href="#" class="nav-item nav-link">Logout</a>
             </div>
         </div>
     </nav>
 </div>
-<div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+<div class="container">
 	<div class="row panel">
         <div class="col-md-8  col-xs-12">
-           <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="img-thumbnail picture hidden-xs" />
+           <img src="./resource/Images/profile-picture.png" class="img-thumbnail picture hidden-xs" />
            <div class="header">
-                <h1>${user.getFname()} ${user.getLname()}</h1>
-                <h4>Web Developer</h4>
+                <h3>${user.getFname()} ${user.getLname()}</h3>
+                <h5>${user.getEmail()}</h5>
            </div>
         </div>
     </div>   
-    
-	<div class="row nav">    
-        <div class="col-md-4"></div>
-        <div class="col-md-8 col-xs-12" style="margin: 0px;padding: 0px;">
-            <div class="col-md-6 col-xs-6 well"><i class="fa fa-weixin fa-lg"></i> 16</div>
-            <div class="col-md-6 col-xs-6 well"><i class="fa fa-user-plus fa-lg"></i> Request</div>
-
-        </div>
-    </div>
+	<div class="row">    
+        <div class="col-md-4 col-xs-12 well"><i class="fa fa-weixin fa-lg"></i> 16</div>
+        <div class="col-md-4 col-xs-12 well"><i class="fa fa-user-plus fa-lg"></i> Request</div>
+	</div>
 </div>
 </body>
 </html>

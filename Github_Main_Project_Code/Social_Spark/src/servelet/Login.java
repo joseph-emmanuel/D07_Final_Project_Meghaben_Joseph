@@ -1,7 +1,7 @@
 package servelet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PrintWriter pw=response.getWriter();
+		//PrintWriter pw=response.getWriter();
 		HttpSession session = request.getSession();
 		
 		

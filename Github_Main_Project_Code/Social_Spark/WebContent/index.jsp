@@ -55,7 +55,7 @@ text-align: center;
                                     <input type="password" class="form-control form-control-lg rounded-0" id="pwd1" name="pass" required="" autocomplete="new-password">
                                     <div class="invalid-feedback">Enter your password too!</div>
                                 </div>
-                                <a href="#"> Forgot Password </a> <span> | </span> <a href="#">Don't have account </a>                           
+                                <a href="#">Don't have account </a>                           
                                 <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
                             </form>
                         </div>
