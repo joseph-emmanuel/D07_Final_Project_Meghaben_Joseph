@@ -10,7 +10,6 @@
 <title>Home</title>
 </head>
 <body>
-
 	<h1>Home</h1>
 	
 	
@@ -24,7 +23,6 @@
 		</jsp:include> 
 	
 	</tag:forEach>
-	
 
 
 </body>

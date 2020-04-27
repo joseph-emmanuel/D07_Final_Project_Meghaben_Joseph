@@ -64,6 +64,7 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String email = request.getParameter("email");
+		String content=(String)request.getAttribute("content");
 		ArrayList<Post> allPosts = new ArrayList<>();
 		ArrayList<Post> userPosts = new ArrayList<>();
 		try {
@@ -73,7 +74,7 @@ public class Home extends HttpServlet {
 			
 			request.setAttribute("allPosts", allPosts);
 			request.setAttribute("userPosts", userPosts);
-			
+			request.setAttribute("content", content);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

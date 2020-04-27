@@ -63,7 +63,7 @@ HttpSession session = request.getSession();
 		
 		Boolean created =  user.createPost(content,image,postdb);
 		
-		
+		request.setAttribute("content", content);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
 		
 		if(created) {
