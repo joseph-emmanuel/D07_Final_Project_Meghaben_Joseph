@@ -59,6 +59,7 @@ public class PostOperation extends HttpServlet {
 	String edit=request.getParameter("edit");
 	String delete=request.getParameter("delete");
 	String like=request.getParameter("like");
+	String unlike=request.getParameter("unlike");
 	String message=request.getParameter("c");
 	Boolean iscompleted=false;
 	
@@ -82,6 +83,12 @@ public class PostOperation extends HttpServlet {
 
 	if (like!=null) {
 		iscompleted=user.likePost(like, postdb);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
+//		request.setAttribute("created", true);
+		dispatcher.forward(request, response);
+	}
+	if (unlike!=null) {
+		iscompleted=user.unlikePost(unlike, postdb);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
 //		request.setAttribute("created", true);
 		dispatcher.forward(request, response);

@@ -128,7 +128,18 @@ public Boolean likePost(String id,PostDBUtil postdb)
 	
 	return true;
 }
-
+public Boolean unlikePost(String id,PostDBUtil postdb)
+{
+	
+	try {
+		postdb.unlikepost(id);
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return true;
+}
 	@Override
 	public String toString() {
 		return this.email;
