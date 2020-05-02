@@ -14,6 +14,7 @@ import model.Post;
 public class PostDBUtil {
 
 //	 User user=(User)session.getAttribute("user");
+	public static int likescount;
 	private DataSource dataSource;
 
 	
@@ -84,11 +85,13 @@ public ArrayList<Post> getUserPosts(String userEmail) throws Exception{
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql = "SELECT * FROM post where email = '" + userEmail +"'";
+			String sql = "SELECT * FROM post where email = ?";
 			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userEmail);
 			smt = conn.createStatement();
 			
-			res = smt.executeQuery(sql);
+			res = pstmt.executeQuery();
 			
 			
 			while(res.next()) {
@@ -127,13 +130,37 @@ public void insertPost(Post tempPost) throws Exception {
 	String email = tempPost.getEmail();	
 	String image = tempPost.getImage();	
 	String date = tempPost.getDate();	
-	int like=tempPost.getLike();
+	String like=tempPost.getLike();
 	
 	try {
 		
 		conn = this.dataSource.getConnection();
 		
 		String sql = String.format("INSERT INTO post (email,content,image,date) VALUES ('%s','%s','%s','%s')", email,content,image,date);
+		
+		smt = conn.createStatement();
+		
+		smt.executeUpdate(sql);
+		
+		
+	}finally {
+		
+		close(conn,smt,pstmt,res);
+	}
+	}
+public void save(String mail,String content) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	
+	
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql = String.format("INSERT INTO saved_posts (email,content) VALUES ('%s','%s')", mail,content);
 		
 		smt = conn.createStatement();
 		
@@ -210,6 +237,7 @@ public void	likepost(String id)throws Exception
 		Statement smt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
+		int likescount=0;
 		Post tempPost=null;
 		try {
 			conn = this.dataSource.getConnection();
@@ -225,7 +253,7 @@ public void	likepost(String id)throws Exception
 				String content = res.getString("content").toString();
 				String image = res.getString("image").toString();
 				String date = res.getString("date").toString();
-				int like=res.getInt("tlike");
+				String like=res.getString("tlike");
 				//int like=res.getInt("like").toString();
 				tempPost = new Post(id, content, image, date, email,like);
 				
@@ -234,8 +262,8 @@ public void	likepost(String id)throws Exception
 			//close(conn,smt,pstmt,res);
 		} 
 		String id11 = tempPost.getId();	
-		int like=tempPost.getLike();
-		 Integer hitsCount=like++;
+		String like=tempPost.getLike();
+		likescount =(Integer.parseInt(like)+1);
 				
 try {
 			
@@ -244,11 +272,11 @@ try {
 			String sql2 = "update post set tlike=? where id=?";
 			
 			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, Integer.toString(hitsCount));
+			pstmt.setString(1, Integer.toString(likescount));
 			pstmt.setString(2, tempPost.getId());
 			pstmt.executeUpdate();
 			
-			System.out.println("Database updated successfully  for like");
+			System.out.println("Database updated successfully  for like: "+likescount);
 			
 		}
 		finally {
@@ -280,7 +308,60 @@ public void deletePost(String id) throws Exception
 		} 
 		
 }
-
+public void	unlikepost(String id)throws Exception
+{
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	int likescount=0;
+	Post tempPost=null;
+	try {
+		conn = this.dataSource.getConnection();
+		String sql = "select * FROM post WHERE id = ?";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, id);
+		
+		res=pstmt.executeQuery();
+		if(res.next()) {
+			String email = res.getString("email").toString();
+			String content = res.getString("content").toString();
+			String image = res.getString("image").toString();
+			String date = res.getString("date").toString();
+			String like=res.getString("tlike");
+			//int like=res.getInt("like").toString();
+			tempPost = new Post(id, content, image, date, email,like);
+			
+		}
+	} finally {
+		//close(conn,smt,pstmt,res);
+	} 
+	String id11 = tempPost.getId();	
+	String like=tempPost.getLike();
+	likescount =(Integer.parseInt(like)-1);
+			
+try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql2 = "update post set tlike=? where id=?";
+		
+		pstmt = conn.prepareStatement(sql2);
+		pstmt.setString(1, Integer.toString(likescount));
+		pstmt.setString(2, tempPost.getId());
+		pstmt.executeUpdate();
+		
+		System.out.println("Database updated successfully  for like: "+likescount);
+		
+	}
+	finally {
+		
+		close(conn,smt,pstmt,res);
+			
+	}
+}
 	private void close(Connection conn, Statement smt, PreparedStatement pstmt, ResultSet res) {
 		
 		try {

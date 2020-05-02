@@ -57,8 +57,9 @@ public class UpdatePost extends HttpServlet {
 		HttpSession session=request.getSession();
 		User user=(User) session.getAttribute("user");
 		String email=user.getEmail();
-		String id="1";
-		String content=(String)request.getAttribute("updateoption");
+		String id=request.getParameter("id");
+		String content=request.getAttribute("content").toString();
+		System.out.println(content);
 		try {
 			postdb.update(id,"i am testing my function ha");
 		} catch (Exception e) {

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.sql.DataSource;
@@ -19,6 +20,54 @@ public class UserDBUtil {
 	public UserDBUtil(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
+	
+	
+	public ArrayList<String> getAllPeople(String email) throws Exception{
+		
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		ArrayList<String> people = new ArrayList<>();
+		try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql = "SELECT * FROM user WHERE email != ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			
+			res = pstmt.executeQuery();
+			
+			while(res.next()) {
+				String tempFname = res.getString("fname").toString();
+				String tempLname = res.getString("lname").toString();				
+				people.add(tempFname+" "+tempLname);
+				
+			}
+				
+			
+		}finally {
+			
+			close(conn,smt,pstmt,res);
+				
+		}
+			
+		
+		return people;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public User findUser(String email) throws Exception{

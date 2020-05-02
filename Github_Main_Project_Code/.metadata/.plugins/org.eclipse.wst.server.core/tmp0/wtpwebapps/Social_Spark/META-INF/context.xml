@@ -8,6 +8,6 @@
 		username="root"
 		password=""
 		driverClassName= "com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/social_spark?useSSL=false"
+		url="jdbc:mysql://localhost:3306/social_spark?useSSL=false&amp;allowPublicKeyRetrieval=true"
 	    name="jdbc/social"/>
 </Context>
