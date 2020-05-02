@@ -11,7 +11,19 @@
 </head>
 <body>
 <h1>Profile</h1>
-
+<form action="AddFriend" method="post">
+<fieldset>
+<h4>Add Friends</h4>
+    <select name="people">
+        <tag:forEach items="${people}" var="people">
+            <option value="${people}">${people}</option>
+        </tag:forEach>
+    </select>
+     <input type="submit" value="Display" />
+</fieldset>
+</form>
+<br>
+<br>
 <h2>${user.getFname()}<br></h2>
 <h2>${user.getLname()}<br></h2>
 <h2>${user.getEmail()}<br></h2>

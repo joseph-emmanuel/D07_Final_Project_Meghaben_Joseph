@@ -66,6 +66,7 @@ public class Login extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		ArrayList<Post> userPosts = new ArrayList<>();
+		ArrayList<String> people = new ArrayList<>();
 		String email = "jk@gmail.com";
 		//request.getParameter("email");
 		String pass = "jk123";
@@ -73,7 +74,7 @@ public class Login extends HttpServlet {
 		
 		try {
 			userPosts=postdb.getUserPosts(email);
-			
+			people=userdb.getAllPeople(email);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -89,8 +90,7 @@ public class Login extends HttpServlet {
 			
 			session.setAttribute("user", tempUser);
 			session.setAttribute("userPosts", userPosts);
-			System.out.println(tempUser.getEmail());
-			
+			session.setAttribute("people", people);
 			response.sendRedirect("profile.jsp");
 			
 		}else {
