@@ -85,11 +85,13 @@ public ArrayList<Post> getUserPosts(String userEmail) throws Exception{
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql = "SELECT * FROM post where email = '" + userEmail +"'";
+			String sql = "SELECT * FROM post where email = ?";
 			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userEmail);
 			smt = conn.createStatement();
 			
-			res = smt.executeQuery(sql);
+			res = pstmt.executeQuery();
 			
 			
 			while(res.next()) {

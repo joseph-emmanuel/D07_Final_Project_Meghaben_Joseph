@@ -15,12 +15,12 @@ import java.util.Date;
 public class Post {
 	
 	
-	private String id;
-	private String content;
-	private  String image;
-	private String date;
-	private String email;
-	private int like;
+	public String id;
+	public String content;
+	public  String image;
+	public String date;
+	public String email;
+	public int like;
 	
 	public Post(String id, String content, String image, String date, String email) {
 		
