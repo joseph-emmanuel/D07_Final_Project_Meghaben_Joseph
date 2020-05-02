@@ -1,6 +1,7 @@
 package servelet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import db.PostDBUtil;
 import db.UserDBUtil;
+import model.Post;
 import model.User;
 
 /**
@@ -35,7 +38,7 @@ public class Login extends HttpServlet {
     @Resource(name="jdbc/social")
     private DataSource datasource;
     private UserDBUtil userdb;
-    
+    private PostDBUtil postdb;
 
 	@Override
 	public void init() throws ServletException {
@@ -44,7 +47,8 @@ public class Login extends HttpServlet {
 		
 		try {
 		
-			userdb = new UserDBUtil(datasource);			
+			userdb = new UserDBUtil(datasource);		
+			postdb = new PostDBUtil(datasource);		
 		
 		}catch(Exception ex) {
 			
@@ -61,14 +65,21 @@ public class Login extends HttpServlet {
 		
 		
 		HttpSession session = request.getSession();
-		
-		
+		ArrayList<Post> userPosts = new ArrayList<>();
+		ArrayList<String> people = new ArrayList<>();
 		String email = "jk@gmail.com";
-				//request.getParameter("email");
+		//request.getParameter("email");
 		String pass = "jk123";
 		//request.getParameter("pass");
 		
-		
+		try {
+			userPosts=postdb.getUserPosts(email);
+			people=userdb.getAllPeople(email);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	
 		User tempUser = new User(email,pass);
 		
 		
@@ -78,9 +89,8 @@ public class Login extends HttpServlet {
 		if(canLogin) {
 			
 			session.setAttribute("user", tempUser);
-			
-			System.out.println(tempUser.getEmail());
-			
+			session.setAttribute("userPosts", userPosts);
+			session.setAttribute("people", people);
 			response.sendRedirect("profile.jsp");
 			
 		}else {

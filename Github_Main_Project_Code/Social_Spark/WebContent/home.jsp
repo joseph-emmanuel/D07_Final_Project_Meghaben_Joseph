@@ -13,9 +13,8 @@
 	<h1>Home</h1>
 	
 	
-	<tag:forEach var="post" items="${allPosts}">
-	
-		<jsp:include page="./posts/post.jsp" >
+	<tag:forEach var="post" items="${allPosts}">	
+		<jsp:include page="./posts/allPosts.jsp" >
     		<jsp:param name="content" value="${post.getContent()}"/>
    			<jsp:param name="date" value="${post.getDate()}"/>
 			<jsp:param name="email" value="${post.getEmail()}"/>
@@ -23,6 +22,9 @@
 		</jsp:include> 
 	
 	</tag:forEach>
+	<br>
+	<br>
+	<a href="profile.jsp">Profile</a>
 
 
 </body>

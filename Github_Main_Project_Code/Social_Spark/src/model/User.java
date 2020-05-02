@@ -76,7 +76,7 @@ public class User {
 	
 public Boolean createPost(String content, String image, PostDBUtil postdb) {
 		
-		Post tempPost = new Post(this.email,content,image,0);
+		Post tempPost = new Post(this.email,content,image,null);
 		
 		try {
 			postdb.insertPost(tempPost);
@@ -128,7 +128,18 @@ public Boolean likePost(String id,PostDBUtil postdb)
 	
 	return true;
 }
-
+public Boolean unlikePost(String id,PostDBUtil postdb)
+{
+	
+	try {
+		postdb.unlikepost(id);
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return true;
+}
 	@Override
 	public String toString() {
 		return this.email;

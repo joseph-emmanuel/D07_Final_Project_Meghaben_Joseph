@@ -59,16 +59,33 @@ public class PostOperation extends HttpServlet {
 	String edit=request.getParameter("edit");
 	String delete=request.getParameter("delete");
 	String like=request.getParameter("like");
-	String message=request.getParameter("c");
+	String save=request.getParameter("save");
+	String unlike=request.getParameter("unlike");
+	String message=request.getParameter("content");
+	String id=request.getParameter("id");
+	String mail=user.getEmail();
 	Boolean iscompleted=false;
 	
+	if (save!=null) {
+		try {
+			postdb.save(mail,message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//request.setAttribute("created", true);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+		dispatcher.forward(request, response);
+	}
 	if (edit!=null) {
+		try {
+			postdb.update(id, message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("UpdatePost");
 		//request.setAttribute("created", true);
-		request.setAttribute("user", user);
-		request.setAttribute("id", edit);
-		request.setAttribute("content", message);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("editPost.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -82,6 +99,12 @@ public class PostOperation extends HttpServlet {
 
 	if (like!=null) {
 		iscompleted=user.likePost(like, postdb);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
+//		request.setAttribute("created", true);
+		dispatcher.forward(request, response);
+	}
+	if (unlike!=null) {
+		iscompleted=user.unlikePost(unlike, postdb);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Home");
 //		request.setAttribute("created", true);
 		dispatcher.forward(request, response);
