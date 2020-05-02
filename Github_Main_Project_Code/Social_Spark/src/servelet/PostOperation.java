@@ -59,11 +59,23 @@ public class PostOperation extends HttpServlet {
 	String edit=request.getParameter("edit");
 	String delete=request.getParameter("delete");
 	String like=request.getParameter("like");
+	String save=request.getParameter("save");
 	String unlike=request.getParameter("unlike");
 	String message=request.getParameter("content");
 	String id=request.getParameter("id");
+	String mail=user.getEmail();
 	Boolean iscompleted=false;
 	
+	if (save!=null) {
+		try {
+			postdb.save(mail,message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//request.setAttribute("created", true);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+		dispatcher.forward(request, response);
+	}
 	if (edit!=null) {
 		try {
 			postdb.update(id, message);

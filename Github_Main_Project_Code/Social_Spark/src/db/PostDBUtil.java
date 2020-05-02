@@ -130,13 +130,37 @@ public void insertPost(Post tempPost) throws Exception {
 	String email = tempPost.getEmail();	
 	String image = tempPost.getImage();	
 	String date = tempPost.getDate();	
-	int like=tempPost.getLike();
+	String like=tempPost.getLike();
 	
 	try {
 		
 		conn = this.dataSource.getConnection();
 		
 		String sql = String.format("INSERT INTO post (email,content,image,date) VALUES ('%s','%s','%s','%s')", email,content,image,date);
+		
+		smt = conn.createStatement();
+		
+		smt.executeUpdate(sql);
+		
+		
+	}finally {
+		
+		close(conn,smt,pstmt,res);
+	}
+	}
+public void save(String mail,String content) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	
+	
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql = String.format("INSERT INTO saved_posts (email,content) VALUES ('%s','%s')", mail,content);
 		
 		smt = conn.createStatement();
 		
@@ -229,7 +253,7 @@ public void	likepost(String id)throws Exception
 				String content = res.getString("content").toString();
 				String image = res.getString("image").toString();
 				String date = res.getString("date").toString();
-				int like=res.getInt("tlike")+1;
+				String like=res.getString("tlike");
 				//int like=res.getInt("like").toString();
 				tempPost = new Post(id, content, image, date, email,like);
 				
@@ -238,8 +262,8 @@ public void	likepost(String id)throws Exception
 			//close(conn,smt,pstmt,res);
 		} 
 		String id11 = tempPost.getId();	
-		int like=tempPost.getLike();
-		likescount =like+1;
+		String like=tempPost.getLike();
+		likescount =(Integer.parseInt(like)+1);
 				
 try {
 			
@@ -248,7 +272,7 @@ try {
 			String sql2 = "update post set tlike=? where id=?";
 			
 			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, Integer.toString(like));
+			pstmt.setString(1, Integer.toString(likescount));
 			pstmt.setString(2, tempPost.getId());
 			pstmt.executeUpdate();
 			
@@ -306,7 +330,7 @@ public void	unlikepost(String id)throws Exception
 			String content = res.getString("content").toString();
 			String image = res.getString("image").toString();
 			String date = res.getString("date").toString();
-			int like=res.getInt("tlike")-1;
+			String like=res.getString("tlike");
 			//int like=res.getInt("like").toString();
 			tempPost = new Post(id, content, image, date, email,like);
 			
@@ -315,8 +339,8 @@ public void	unlikepost(String id)throws Exception
 		//close(conn,smt,pstmt,res);
 	} 
 	String id11 = tempPost.getId();	
-	int like=tempPost.getLike();
-	likescount =like-1;
+	String like=tempPost.getLike();
+	likescount =(Integer.parseInt(like)-1);
 			
 try {
 		
@@ -325,7 +349,7 @@ try {
 		String sql2 = "update post set tlike=? where id=?";
 		
 		pstmt = conn.prepareStatement(sql2);
-		pstmt.setString(1, Integer.toString(like));
+		pstmt.setString(1, Integer.toString(likescount));
 		pstmt.setString(2, tempPost.getId());
 		pstmt.executeUpdate();
 		

@@ -17,6 +17,17 @@
 <h2>${user.getEmail()}<br></h2>
 <h2></h2>
 <br><br>
+<a href="Home">Home</a>
+<br>
+<a href="LogoutServlet">Logout</a>
+<form action="CreatePost" method="post">
+<textarea name="content"></textarea>
+<input type="file" name="image">
+<br>
+<button type="submit">create</button>
+<button type="reset">reset</button>
+</form>
+<br><br>
 <form action="PostOperation" method="post">
 	<tag:forEach var="post" items="${userPosts}">	
 		<jsp:include page="./posts/post.jsp" >
@@ -27,14 +38,7 @@
 		</jsp:include> 	
 	</tag:forEach>
 </form>	
-	<a href="Home">Home</a>
-<a href="LogoutServlet">Logout</a> |  
-<form action="CreatePost" method="post">
-<textarea name="content"></textarea>
-<input type="file" name="image">
-<button type="submit">create</button>
-<button type="reset">reset</button>
-</form>
+
 
 </body>
 </html>

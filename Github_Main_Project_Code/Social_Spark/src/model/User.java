@@ -76,7 +76,7 @@ public class User {
 	
 public Boolean createPost(String content, String image, PostDBUtil postdb) {
 		
-		Post tempPost = new Post(this.email,content,image,0);
+		Post tempPost = new Post(this.email,content,image,null);
 		
 		try {
 			postdb.insertPost(tempPost);
