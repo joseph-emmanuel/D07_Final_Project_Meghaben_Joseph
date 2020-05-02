@@ -60,16 +60,20 @@ public class PostOperation extends HttpServlet {
 	String delete=request.getParameter("delete");
 	String like=request.getParameter("like");
 	String unlike=request.getParameter("unlike");
-	String message=request.getParameter("c");
+	String message=request.getParameter("content");
+	String id=request.getParameter("id");
 	Boolean iscompleted=false;
 	
 	if (edit!=null) {
+		try {
+			postdb.update(id, message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("UpdatePost");
 		//request.setAttribute("created", true);
-		request.setAttribute("user", user);
-		request.setAttribute("id", edit);
-		request.setAttribute("content", message);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("editPost.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 		dispatcher.forward(request, response);
 		
 	}
