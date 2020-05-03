@@ -26,6 +26,20 @@
      <input type="submit" value="Perform action" />
 </fieldset>
 </form>
+<br><br>
+<form action="RemoveFriend" method="post">
+<fieldset>
+<h4>Remove Friends</h4>
+   Select the person <select name="friend">
+        <tag:forEach items="${friend}" var="friend">
+            <option value="${friend.femail}">${friend.femail}</option>
+        </tag:forEach>
+    </select>
+     <input type="submit" value="Remove Friend" />
+</fieldset>
+</form>
+<br>
+<br>
 <br>
 <br>
 <h2>${user.getFname()}<br></h2>

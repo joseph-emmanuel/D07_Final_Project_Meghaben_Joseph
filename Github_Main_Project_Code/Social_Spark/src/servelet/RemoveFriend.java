@@ -1,7 +1,6 @@
 package servelet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -15,43 +14,34 @@ import javax.sql.DataSource;
 
 import db.FriendDBUtil;
 import db.PostDBUtil;
-import db.UserDBUtil;
-import model.Post;
 import model.User;
-import model.friend;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class RemoveFriend
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/RemoveFriend")
+public class RemoveFriend extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public RemoveFriend() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-    
-    
     @Resource(name="jdbc/social")
     private DataSource datasource;
-    private UserDBUtil userdb;
     private PostDBUtil postdb;
     private FriendDBUtil frienddb;
-
-	@Override
+    @Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		
 		try {
 		
-			userdb = new UserDBUtil(datasource);		
-			postdb = new PostDBUtil(datasource);	
+			postdb = new PostDBUtil(datasource);		
 			frienddb=new FriendDBUtil(datasource);
 		
 		}catch(Exception ex) {
@@ -66,54 +56,26 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		HttpSession session = request.getSession();
-		ArrayList<Post> userPosts = new ArrayList<>();
-		ArrayList<User> people = new ArrayList<>();
-		ArrayList<friend> friend = new ArrayList<>();
-		
-		String email = "jk@gmail.com";
-		//request.getParameter("email");
-		String pass = "jk123";
-		//request.getParameter("pass");
-		
+		String selectedPerson=request.getParameter("friend");
+		System.out.println(selectedPerson);
+		HttpSession session=request.getSession();
+		User user=(User) session.getAttribute("user");
+		System.out.println(user.getEmail());
+		String uemail=user.getEmail();
+		String femail=selectedPerson;
 		try {
-			userPosts=postdb.getUserPosts(email);
-			people=userdb.getAllPeople(email);
-			friend=frienddb.getAllFriends(email);
+			frienddb.deleteFriend(uemail, femail);
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+		dispatcher.forward(request, response);
 	
-		User tempUser = new User(email,pass);
-		
-		
-		Boolean canLogin = tempUser.login(userdb);
-		
-		
-		if(canLogin) {
-			
-			session.setAttribute("user", tempUser);
-			session.setAttribute("userPosts", userPosts);
-			session.setAttribute("people", people);
-			session.setAttribute("friend", friend);
-			
-			
-			response.sendRedirect("profile.jsp");
-			
-		}else {
-			
-			RequestDispatcher dispatcher =request.getRequestDispatcher("index.jsp");
-			
-			request.setAttribute("loginError", true);
-			dispatcher.forward(request, response);
-			
-			
-		}
-		
-	}
+	}	
+	
+	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import model.User;
 import model.friend;
 public class FriendDBUtil {
 private DataSource dataSource;
@@ -66,6 +67,75 @@ public void blockUser(String uemail,String femail) throws Exception {
 			close(conn,smt,pstmt,res);
 		}
 		}
+
+
+public void deleteFriend(String uemail,String femail) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql2 = "DELETE FROM friend WHERE uemail=? and femail=?";
+		
+		pstmt = conn.prepareStatement(sql2);
+		pstmt.setString(1, uemail);
+		pstmt.setString(2, femail);
+		pstmt.executeUpdate();
+		
+		System.out.println("Database updated successfully ");
+		
+	}finally {
+		System.out.println("completed the insert");
+		close(conn,smt,pstmt,res);
+	}
+	}
+
+
+
+public ArrayList<friend> getAllFriends(String uemail) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	String status="1";
+	ArrayList<friend> uFriends = new ArrayList<>();
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql = "SELECT * FROM friend WHERE uemail =? and status=?";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, uemail);
+		pstmt.setString(2, status);
+		
+		res = pstmt.executeQuery();
+		
+		while(res.next()) {
+			String tuemail = res.getString("uemail").toString();
+			String tfemail = res.getString("femail").toString();
+			String tstatus=res.getString("status").toString();
+			uFriends.add(new friend(tuemail, tfemail, tstatus));
+			
+		}
+			
+		
+	}finally {
+		
+		close(conn,smt,pstmt,res);
+			
+	}
+		
+	
+	return uFriends;
+	
+}
 private void close(Connection conn, Statement smt, PreparedStatement pstmt, ResultSet res) {
 		
 		try {
