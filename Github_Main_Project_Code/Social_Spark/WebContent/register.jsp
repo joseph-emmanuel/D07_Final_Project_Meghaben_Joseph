@@ -44,7 +44,7 @@ text-align: center;
                             <h3 class="mb-0">Register</h3>
                         </div>
                         <div class="card-body">
-                            <form action="Login" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                            <form action="Register" class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
                                 <div class="form-group">
                                     <label for="uname1">First Name</label>
                                     <input type="text" class="form-control form-control-lg rounded-0" name="email" id="fname" required="">
