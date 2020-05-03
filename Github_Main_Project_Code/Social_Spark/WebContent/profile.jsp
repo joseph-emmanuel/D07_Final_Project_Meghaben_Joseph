@@ -14,12 +14,12 @@
 <form action="AddFriend" method="post">
 <fieldset>
 <h4>Add Friends</h4>
-    <select name="people">
+   Select the person <select name="people">
         <tag:forEach items="${people}" var="people">
-            <option value="${people}">${people}</option>
+            <option value="${people.getEmail()}">${people.getFname()} ${people.getLname()}</option>
         </tag:forEach>
     </select>
-     <input type="submit" value="Display" />
+     <input type="submit" value="Add Friend" />
 </fieldset>
 </form>
 <br>

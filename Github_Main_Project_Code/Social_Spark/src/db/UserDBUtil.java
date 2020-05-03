@@ -22,13 +22,13 @@ public class UserDBUtil {
 	}
 	
 	
-	public ArrayList<String> getAllPeople(String email) throws Exception{
+	public ArrayList<User> getAllPeople(String email) throws Exception{
 		
 		Connection conn = null;
 		Statement smt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		ArrayList<String> people = new ArrayList<>();
+		ArrayList<User> people = new ArrayList<>();
 		try {
 			
 			conn = this.dataSource.getConnection();
@@ -43,8 +43,9 @@ public class UserDBUtil {
 			
 			while(res.next()) {
 				String tempFname = res.getString("fname").toString();
-				String tempLname = res.getString("lname").toString();				
-				people.add(tempFname+" "+tempLname);
+				String tempLname = res.getString("lname").toString();
+				String tempEmail=res.getString("email").toString();
+				people.add(new User(tempFname, tempLname, tempEmail));
 				
 			}
 				

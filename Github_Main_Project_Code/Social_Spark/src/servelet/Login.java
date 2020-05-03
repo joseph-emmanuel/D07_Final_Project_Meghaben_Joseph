@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		ArrayList<Post> userPosts = new ArrayList<>();
-		ArrayList<String> people = new ArrayList<>();
+		ArrayList<User> people = new ArrayList<>();
 		String email = "jk@gmail.com";
 		//request.getParameter("email");
 		String pass = "jk123";

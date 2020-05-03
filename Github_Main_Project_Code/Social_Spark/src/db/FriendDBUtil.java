@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import model.Post;
+import model.friend;
 public class FriendDBUtil {
 private DataSource dataSource;
 
@@ -17,24 +17,18 @@ private DataSource dataSource;
 		this.dataSource = dataSource;
 	}
 	
-	public void addFriend(Post tempPost) throws Exception {
+	public void addFriend(String uemail,String femail) throws Exception {
 		
 		Connection conn = null;
 		Statement smt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		
-		String content = tempPost.getContent();	
-		String email = tempPost.getEmail();	
-		String image = tempPost.getImage();	
-		String date = tempPost.getDate();	
-		String like=tempPost.getLike();
-		
+		String status="0";
 		try {
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql = String.format("INSERT INTO post (email,content,image,date) VALUES ('%s','%s','%s','%s')", email,content,image,date);
+			String sql = String.format("INSERT INTO friend (uemail,femail,status) VALUES ('%s','%s','%s')", uemail,femail,status);
 			
 			smt = conn.createStatement();
 			
@@ -42,7 +36,7 @@ private DataSource dataSource;
 			
 			
 		}finally {
-			
+			System.out.println("completed the insert");
 			close(conn,smt,pstmt,res);
 		}
 		}
