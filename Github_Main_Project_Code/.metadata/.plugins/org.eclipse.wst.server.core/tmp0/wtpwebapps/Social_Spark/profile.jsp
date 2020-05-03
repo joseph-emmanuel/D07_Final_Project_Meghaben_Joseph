@@ -19,7 +19,11 @@
             <option value="${people.getEmail()}">${people.getFname()} ${people.getLname()}</option>
         </tag:forEach>
     </select>
-     <input type="submit" value="Add Friend" />
+    <select name="operation">
+  <option id="add">Add friend</option>
+  <option id="block">Block User</option>
+</select>
+     <input type="submit" value="Perform action" />
 </fieldset>
 </form>
 <br>

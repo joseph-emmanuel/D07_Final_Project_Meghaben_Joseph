@@ -3,6 +3,7 @@ package servelet;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,13 +64,27 @@ public class AddFriend extends HttpServlet {
 		System.out.println(user.getEmail());
 		String uemail=user.getEmail();
 		String femail=selectedPerson;
+		String option=request.getParameter("operation");
+		if(option.contains("Add friend")) {
 		try {
 			frienddb.addFriend(uemail, femail);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+		dispatcher.forward(request, response);
+	}
+		if(option.contains("Block User")) {
+			try {
+				frienddb.blockUser(uemail, femail);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**

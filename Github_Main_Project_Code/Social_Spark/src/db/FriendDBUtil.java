@@ -40,6 +40,32 @@ private DataSource dataSource;
 			close(conn,smt,pstmt,res);
 		}
 		}
+public void blockUser(String uemail,String femail) throws Exception {
+		
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		String status="2";
+		try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql2 = "update friend set status=? where uemail=? and femail=?";
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, status);
+			pstmt.setString(2, uemail);
+			pstmt.setString(3, femail);
+			pstmt.executeUpdate();
+			
+			System.out.println("Database updated successfully ");
+			
+		}finally {
+			System.out.println("completed the insert");
+			close(conn,smt,pstmt,res);
+		}
+		}
 private void close(Connection conn, Statement smt, PreparedStatement pstmt, ResultSet res) {
 		
 		try {
