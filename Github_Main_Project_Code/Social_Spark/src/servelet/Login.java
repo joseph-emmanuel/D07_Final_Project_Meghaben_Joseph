@@ -73,10 +73,8 @@ public class Login extends HttpServlet {
 		ArrayList<User> people = new ArrayList<>();
 		ArrayList<friend> friend = new ArrayList<>();
 		
-		String email = "jk@gmail.com";
-		//request.getParameter("email");
-		String pass = "jk123";
-		//request.getParameter("pass");
+		String email = request.getParameter("email");
+		String pass = request.getParameter("pass");
 		
 		try {
 			userPosts=postdb.getUserPosts(email);

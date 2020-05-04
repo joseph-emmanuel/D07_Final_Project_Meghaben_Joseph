@@ -30,7 +30,7 @@ CREATE TABLE `post` (
   `date` varchar(45) NOT NULL,
   `tlike` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'jk@gmail.com','i am testing my function ha','','2020-01-01 10:10:02',19),(2,'jk@gmail.com','Post number changes as a test','','2020-02-01 11:40:12',12),(3,'jm@gmail.com','Post number 3','','2020-03-01 18:12:21',6),(4,'jt@gmail.com','Post number 4','','2020-03-01 09:21:33',1),(5,'jk@gmail.com','post number 5',NULL,'2020-03-01 09:21:33',1),(31,'jk@gmail.com','new post','','02-05-2020 04:04:34',NULL);
+INSERT INTO `post` VALUES (1,'jk@gmail.com','i am testing my function ha','','2020-01-01 10:10:02',19),(2,'jk@gmail.com','Post number changes as a test','','2020-02-01 11:40:12',12),(3,'jm@gmail.com','Post number 3','','2020-03-01 18:12:21',6),(4,'jt@gmail.com','Post number 4','','2020-03-01 09:21:33',1),(5,'jk@gmail.com','post number 5',NULL,'2020-03-01 09:21:33',1),(31,'jk@gmail.com','new post','','02-05-2020 04:04:34',NULL),(32,'ja@gmail.com','johns post','','03-05-2020 22:07:05',NULL);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-02 15:48:07
+-- Dump completed on 2020-05-03 22:08:20

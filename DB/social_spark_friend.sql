@@ -23,11 +23,12 @@ DROP TABLE IF EXISTS `friend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `friend` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `uemail` varchar(45) NOT NULL,
   `femail` varchar(45) NOT NULL,
   `status` tinyint NOT NULL,
-  PRIMARY KEY (`uemail`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +37,7 @@ CREATE TABLE `friend` (
 
 LOCK TABLES `friend` WRITE;
 /*!40000 ALTER TABLE `friend` DISABLE KEYS */;
+INSERT INTO `friend` VALUES (1,'jk@gmail.com','jr@gmail.com',4),(3,'jk@gmail.com','jr@gmail.com',1),(4,'abain@gmail.com','jk@gmail.com',1),(5,'jk@gmail.com','abain@gmail.com',2),(6,'ja@gmail.com','jk@gmail.com',1),(7,'ja@gmail.com','jz@gmail.com',0);
 /*!40000 ALTER TABLE `friend` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-02 15:48:07
+-- Dump completed on 2020-05-03 22:08:20
