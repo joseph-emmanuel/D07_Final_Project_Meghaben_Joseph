@@ -19,6 +19,14 @@ public class User {
 	}
 
 
+	public User(String fname, String lname, String email) {
+		super();
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+	}
+
+
 	public User(String email, String pass) {
 		this.email = email;
 		this.pass = pass;

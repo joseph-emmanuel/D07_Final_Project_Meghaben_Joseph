@@ -171,30 +171,4 @@ background-color: #F1F1F1;
 	<div class="row">    
         <div class="col-md-4 col-xs-12 well"><i class="fa fa-weixin fa-lg"></i> 16</div>
         <div class="col-md-4 col-xs-12 well"><i class="fa fa-user-plus fa-lg"></i> <form action="AddFriend" method="post">
-<fieldset>
-<lable>Add Friends</label>
-    <select name="people">
-        <tag:forEach items="${people}" var="people">
-            <option value="${people}">${people}</option>
-        </tag:forEach>
-    </select>
-     <input type="submit" value="Display" />
-</fieldset>
-</form></div>
-	</div>
-	<div class="row">    
-        <div class="col-md-4 col-xs-12">Create Post</div>
-        <div class="col-md-4 col-xs-12"><form action="PostOperation" method="post">
-	<tag:forEach var="post" items="${userPosts}">	
-		<jsp:include page="./posts/post.jsp" >
-    		<jsp:param name="content" value="${post.getContent()}"/>
-   			<jsp:param name="date" value="${post.getDate()}"/>
-			<jsp:param name="email" value="${post.getEmail()}"/>
-			<jsp:param name="id" value="${post.id}"/>
-		</jsp:include> 	
-	</tag:forEach>
-</form></div>
-	</div>
-</div>
-</body>
-</html>
+

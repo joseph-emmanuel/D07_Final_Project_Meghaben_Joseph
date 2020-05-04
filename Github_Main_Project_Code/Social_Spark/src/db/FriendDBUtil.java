@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import model.Post;
+import model.User;
+import model.friend;
 public class FriendDBUtil {
 private DataSource dataSource;
 
@@ -17,24 +18,18 @@ private DataSource dataSource;
 		this.dataSource = dataSource;
 	}
 	
-	public void addFriend(Post tempPost) throws Exception {
+	public void addFriend(String uemail,String femail) throws Exception {
 		
 		Connection conn = null;
 		Statement smt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		
-		String content = tempPost.getContent();	
-		String email = tempPost.getEmail();	
-		String image = tempPost.getImage();	
-		String date = tempPost.getDate();	
-		String like=tempPost.getLike();
-		
+		String status="0";
 		try {
 			
 			conn = this.dataSource.getConnection();
 			
-			String sql = String.format("INSERT INTO post (email,content,image,date) VALUES ('%s','%s','%s','%s')", email,content,image,date);
+			String sql = String.format("INSERT INTO friend (uemail,femail,status) VALUES ('%s','%s','%s')", uemail,femail,status);
 			
 			smt = conn.createStatement();
 			
@@ -42,10 +37,105 @@ private DataSource dataSource;
 			
 			
 		}finally {
-			
+			System.out.println("completed the insert");
 			close(conn,smt,pstmt,res);
 		}
 		}
+public void blockUser(String uemail,String femail) throws Exception {
+		
+		Connection conn = null;
+		Statement smt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		String status="2";
+		try {
+			
+			conn = this.dataSource.getConnection();
+			
+			String sql2 = "update friend set status=? where uemail=? and femail=?";
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setString(1, status);
+			pstmt.setString(2, uemail);
+			pstmt.setString(3, femail);
+			pstmt.executeUpdate();
+			
+			System.out.println("Database updated successfully ");
+			
+		}finally {
+			System.out.println("completed the insert");
+			close(conn,smt,pstmt,res);
+		}
+		}
+
+
+public void deleteFriend(String uemail,String femail) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql2 = "DELETE FROM friend WHERE uemail=? and femail=?";
+		
+		pstmt = conn.prepareStatement(sql2);
+		pstmt.setString(1, uemail);
+		pstmt.setString(2, femail);
+		pstmt.executeUpdate();
+		
+		System.out.println("Database updated successfully ");
+		
+	}finally {
+		System.out.println("completed the insert");
+		close(conn,smt,pstmt,res);
+	}
+	}
+
+
+
+public ArrayList<friend> getAllFriends(String uemail) throws Exception {
+	
+	Connection conn = null;
+	Statement smt = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	String status="1";
+	ArrayList<friend> uFriends = new ArrayList<>();
+	try {
+		
+		conn = this.dataSource.getConnection();
+		
+		String sql = "SELECT * FROM friend WHERE uemail =? and status=?";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, uemail);
+		pstmt.setString(2, status);
+		
+		res = pstmt.executeQuery();
+		
+		while(res.next()) {
+			String tuemail = res.getString("uemail").toString();
+			String tfemail = res.getString("femail").toString();
+			String tstatus=res.getString("status").toString();
+			uFriends.add(new friend(tuemail, tfemail, tstatus));
+			
+		}
+			
+		
+	}finally {
+		
+		close(conn,smt,pstmt,res);
+			
+	}
+		
+	
+	return uFriends;
+	
+}
 private void close(Connection conn, Statement smt, PreparedStatement pstmt, ResultSet res) {
 		
 		try {
