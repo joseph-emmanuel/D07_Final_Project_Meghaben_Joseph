@@ -17,16 +17,16 @@ import db.PostDBUtil;
 import model.User;
 
 /**
- * Servlet implementation class AddFriend
+ * Servlet implementation class RemoveFriend
  */
-@WebServlet("/AddFriend")
-public class AddFriend extends HttpServlet {
+@WebServlet("/RemoveFriend")
+public class RemoveFriend extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddFriend() {
+    public RemoveFriend() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,36 +56,26 @@ public class AddFriend extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String selectedPerson=request.getParameter("people");
+		String selectedPerson=request.getParameter("friend");
 		System.out.println(selectedPerson);
 		HttpSession session=request.getSession();
 		User user=(User) session.getAttribute("user");
 		System.out.println(user.getEmail());
 		String uemail=user.getEmail();
 		String femail=selectedPerson;
-		String option=request.getParameter("operation");
-		if(option.contains("Add friend")) {
 		try {
-			frienddb.addFriend(uemail, femail);
+			frienddb.deleteFriend(uemail, femail);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 		dispatcher.forward(request, response);
-	}
-		if(option.contains("Block User")) {
-			try {
-				frienddb.blockUser(uemail, femail);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
-			dispatcher.forward(request, response);
-		}
-	}
+	
+	}	
+	
+	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

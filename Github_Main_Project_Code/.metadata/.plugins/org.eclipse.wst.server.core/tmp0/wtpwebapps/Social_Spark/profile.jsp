@@ -14,14 +14,32 @@
 <form action="AddFriend" method="post">
 <fieldset>
 <h4>Add Friends</h4>
-    <select name="people">
+   Select the person <select name="people">
         <tag:forEach items="${people}" var="people">
-            <option value="${people}">${people}</option>
+            <option value="${people.getEmail()}">${people.getFname()} ${people.getLname()}</option>
         </tag:forEach>
     </select>
-     <input type="submit" value="Display" />
+    <select name="operation">
+  <option id="add">Add friend</option>
+  <option id="block">Block User</option>
+</select>
+     <input type="submit" value="Perform action" />
 </fieldset>
 </form>
+<br><br>
+<form action="RemoveFriend" method="post">
+<fieldset>
+<h4>Remove Friends</h4>
+   Select the person <select name="friend">
+        <tag:forEach items="${friend}" var="friend">
+            <option value="${friend.femail}">${friend.femail}</option>
+        </tag:forEach>
+    </select>
+     <input type="submit" value="Remove Friend" />
+</fieldset>
+</form>
+<br>
+<br>
 <br>
 <br>
 <h2>${user.getFname()}<br></h2>

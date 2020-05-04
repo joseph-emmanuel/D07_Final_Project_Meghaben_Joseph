@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import db.FriendDBUtil;
 import db.PostDBUtil;
 import db.UserDBUtil;
 import model.Post;
 import model.User;
+import model.friend;
 
 /**
  * Servlet implementation class Login
@@ -39,6 +41,7 @@ public class Login extends HttpServlet {
     private DataSource datasource;
     private UserDBUtil userdb;
     private PostDBUtil postdb;
+    private FriendDBUtil frienddb;
 
 	@Override
 	public void init() throws ServletException {
@@ -48,7 +51,8 @@ public class Login extends HttpServlet {
 		try {
 		
 			userdb = new UserDBUtil(datasource);		
-			postdb = new PostDBUtil(datasource);		
+			postdb = new PostDBUtil(datasource);	
+			frienddb=new FriendDBUtil(datasource);
 		
 		}catch(Exception ex) {
 			
@@ -66,7 +70,9 @@ public class Login extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		ArrayList<Post> userPosts = new ArrayList<>();
-		ArrayList<String> people = new ArrayList<>();
+		ArrayList<User> people = new ArrayList<>();
+		ArrayList<friend> friend = new ArrayList<>();
+		
 		String email = "jk@gmail.com";
 		//request.getParameter("email");
 		String pass = "jk123";
@@ -75,6 +81,7 @@ public class Login extends HttpServlet {
 		try {
 			userPosts=postdb.getUserPosts(email);
 			people=userdb.getAllPeople(email);
+			friend=frienddb.getAllFriends(email);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -91,6 +98,9 @@ public class Login extends HttpServlet {
 			session.setAttribute("user", tempUser);
 			session.setAttribute("userPosts", userPosts);
 			session.setAttribute("people", people);
+			session.setAttribute("friend", friend);
+			
+			
 			response.sendRedirect("profile.jsp");
 			
 		}else {
